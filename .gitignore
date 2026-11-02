@@ -5,3 +5,4 @@ dashboard/frontend/node_modules/
 dashboard/frontend/*.tsbuildinfo
 .DS_Store
 *.log
+tools/make_presentation.js
