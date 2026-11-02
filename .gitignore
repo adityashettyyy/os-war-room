@@ -1,0 +1,7 @@
+build/
+*.o
+node_modules/
+dashboard/frontend/node_modules/
+dashboard/frontend/*.tsbuildinfo
+.DS_Store
+*.log
