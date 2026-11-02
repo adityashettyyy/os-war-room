@@ -1,0 +1,51 @@
+{
+  "title": "Experiment — Mixed Workload under MLFQ",
+  "description": "Ten CPU-bound, ten I/O-bound and five interactive processes under a multilevel feedback queue. Interactive work stays at the top level while CPU hogs sink; compare with other schedulers in the Experiment Lab.",
+  "demonstrates": [
+    "MLFQ",
+    "Process types",
+    "Page replacement under load"
+  ],
+  "suggestedTicks": 2500,
+  "config": {
+    "scheduler": "MLFQ",
+    "quantum": 4,
+    "replacement": "LRU",
+    "memoryKB": 256,
+    "pageSizeKB": 4,
+    "thrashingControl": false
+  },
+  "processes": [
+    {
+      "count": 10,
+      "name": "cpu",
+      "type": "CPU_BOUND",
+      "cpuBurst": 45,
+      "ioBurst": 20,
+      "priority": 6,
+      "memoryKB": 32,
+      "arrivalStep": 2
+    },
+    {
+      "count": 10,
+      "name": "io",
+      "type": "IO_BOUND",
+      "cpuBurst": 30,
+      "ioBurst": 60,
+      "priority": 4,
+      "memoryKB": 32,
+      "arrivalStep": 2
+    },
+    {
+      "count": 5,
+      "name": "ui",
+      "type": "INTERACTIVE",
+      "cpuBurst": 15,
+      "ioBurst": 30,
+      "priority": 2,
+      "memoryKB": 24,
+      "arrivalStep": 4
+    }
+  ],
+  "name": "mixed_workload"
+}

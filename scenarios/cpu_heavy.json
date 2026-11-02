@@ -1,0 +1,32 @@
+{
+  "title": "Scenario 1 — CPU Battle",
+  "description": "Ten CPU-bound processes compete for one CPU under Round Robin. Watch the ready queue rotate, timer interrupts fire and context switches eat into utilisation.",
+  "demonstrates": [
+    "CPU scheduling",
+    "Context switching",
+    "Timer interrupts",
+    "CPU utilisation"
+  ],
+  "suggestedTicks": 450,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 6,
+    "replacement": "LRU",
+    "memoryKB": 512,
+    "pageSizeKB": 4,
+    "ctxSwitchCost": 1
+  },
+  "processes": [
+    {
+      "count": 10,
+      "name": "cpu",
+      "type": "CPU_BOUND",
+      "cpuBurst": 30,
+      "priority": 5,
+      "memoryKB": 16,
+      "arrival": 0,
+      "arrivalStep": 1
+    }
+  ],
+  "name": "cpu_heavy"
+}

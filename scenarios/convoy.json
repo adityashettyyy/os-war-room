@@ -1,0 +1,34 @@
+{
+  "title": "Scheduling — Convoy Effect",
+  "description": "Under FCFS one long CPU-bound batch job holds the CPU while eight short I/O-bound jobs queue behind it and the disk sits idle. Switch to RR or MLFQ to break the convoy.",
+  "demonstrates": [
+    "FCFS weakness",
+    "Convoy effect",
+    "I/O utilisation"
+  ],
+  "suggestedTicks": 400,
+  "config": {
+    "scheduler": "FCFS"
+  },
+  "processes": [
+    {
+      "name": "batch-job",
+      "cpuBurst": 130,
+      "priority": 5,
+      "memoryKB": 16,
+      "memoryRefs": false
+    },
+    {
+      "count": 8,
+      "name": "io",
+      "type": "IO_BOUND",
+      "cpuBurst": 12,
+      "ioBurst": 40,
+      "priority": 5,
+      "memoryKB": 16,
+      "memoryRefs": false,
+      "arrival": 1
+    }
+  ],
+  "name": "convoy"
+}

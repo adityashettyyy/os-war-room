@@ -1,0 +1,39 @@
+{
+  "title": "Scenario 3 — I/O Storm",
+  "description": "Twenty-four processes hammer the disk and printer. Device queues grow, processes block in WAITING, I/O interrupts wake them, write-behind buffers fill and the printer spool backs up.",
+  "demonstrates": [
+    "I/O blocking",
+    "Device queues",
+    "I/O interrupts",
+    "Buffering",
+    "Spooling"
+  ],
+  "suggestedTicks": 320,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 4,
+    "diskBuffer": 3,
+    "spoolCapacity": 6,
+    "memoryKB": 512
+  },
+  "processes": [
+    {
+      "count": 24,
+      "name": "storm",
+      "priority": 4,
+      "memoryKB": 16,
+      "memoryRefs": false,
+      "arrivalStep": 1,
+      "script": [
+        "COMPUTE 1",
+        "READ DISK 5",
+        "WRITE PRINTER 4 storm_report.txt",
+        "READ DISK 5",
+        "WRITE DISK 4",
+        "WRITE PRINTER 4 storm_summary.txt",
+        "COMPUTE 1"
+      ]
+    }
+  ],
+  "name": "io_flood"
+}

@@ -1,0 +1,65 @@
+{
+  "title": "Scenario 5 — Process Crash",
+  "description": "A fault is injected into P3 while it holds a lock. The error interrupt fires, the kernel saves a crash dump, releases the frames and the lock, and the process waiting on that lock and every other process carry on.",
+  "demonstrates": [
+    "Error detection",
+    "Interrupt handling",
+    "Resource cleanup",
+    "Recovery"
+  ],
+  "suggestedTicks": 260,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 4
+  },
+  "processes": [
+    {
+      "name": "steady-1",
+      "cpuBurst": 40,
+      "priority": 5,
+      "memoryKB": 24
+    },
+    {
+      "name": "steady-2",
+      "cpuBurst": 30,
+      "priority": 5,
+      "memoryKB": 24
+    },
+    {
+      "name": "lock-holder",
+      "priority": 5,
+      "memoryKB": 24,
+      "script": [
+        "LOCK db",
+        "COMPUTE 40",
+        "UNLOCK db"
+      ]
+    },
+    {
+      "name": "lock-waiter",
+      "priority": 5,
+      "memoryKB": 24,
+      "script": [
+        "COMPUTE 2",
+        "LOCK db",
+        "COMPUTE 5",
+        "UNLOCK db"
+      ]
+    },
+    {
+      "name": "steady-3",
+      "cpuBurst": 25,
+      "priority": 5,
+      "memoryKB": 24
+    }
+  ],
+  "actions": [
+    {
+      "at": 15,
+      "do": "crash",
+      "pid": 3,
+      "reason": "INJECTED FAULT"
+    }
+  ],
+  "name": "fault_recovery"
+}

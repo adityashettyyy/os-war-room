@@ -1,0 +1,31 @@
+{
+  "title": "Scheduling — Starvation",
+  "description": "Strict preemptive priority scheduling with aging OFF: a priority-9 process is starved by five priority-1 CPU hogs. Switch on aging in the Scheduler Lab (or change the scheduler) to watch it get served.",
+  "demonstrates": [
+    "Priority scheduling",
+    "Starvation",
+    "Aging"
+  ],
+  "suggestedTicks": 320,
+  "config": {
+    "scheduler": "PRIORITY",
+    "aging": false,
+    "ctxSwitchCost": 1
+  },
+  "processes": [
+    {
+      "name": "victim",
+      "cpuBurst": 20,
+      "priority": 9,
+      "memoryKB": 16
+    },
+    {
+      "count": 5,
+      "name": "vip",
+      "cpuBurst": 60,
+      "priority": 1,
+      "memoryKB": 16
+    }
+  ],
+  "name": "starvation"
+}

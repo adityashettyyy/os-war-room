@@ -1,0 +1,33 @@
+{
+  "title": "Scenario 2 — Memory Meltdown",
+  "description": "Twenty memory-hungry processes (≈8-page working sets) share 64 frames. The page-fault rate soars, CPU utilisation collapses and the kernel detects thrashing, then swaps out low-priority processes until it recovers.",
+  "demonstrates": [
+    "Paging",
+    "Page faults",
+    "Page replacement",
+    "Thrashing detection and load control"
+  ],
+  "suggestedTicks": 600,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 4,
+    "replacement": "LRU",
+    "memoryKB": 256,
+    "pageSizeKB": 4,
+    "thrashingControl": true
+  },
+  "processes": [
+    {
+      "count": 20,
+      "name": "hog",
+      "type": "CPU_BOUND",
+      "cpuBurst": 70,
+      "priority": 4,
+      "memoryKB": 64,
+      "localityPages": 8,
+      "arrival": 0,
+      "arrivalStep": 0
+    }
+  ],
+  "name": "memory_pressure"
+}

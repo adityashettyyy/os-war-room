@@ -1,0 +1,58 @@
+{
+  "title": "Scenario 4 — Deadlock Trap",
+  "description": "P4 holds R1 and wants R2 while P5 holds R2 and wants R1. The wait-for graph closes into a cycle; the kernel reports the deadlock, picks the less important process as victim, terminates it and the survivor finishes.",
+  "demonstrates": [
+    "Resource allocation",
+    "Deadlock detection",
+    "Deadlock recovery",
+    "Mutex locks"
+  ],
+  "suggestedTicks": 240,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 4,
+    "autoDeadlockRecovery": true,
+    "deadlockRecoveryDelay": 10,
+    "recovery": "TERMINATE"
+  },
+  "processes": [
+    {
+      "count": 3,
+      "name": "worker",
+      "cpuBurst": 25,
+      "priority": 5,
+      "memoryKB": 16
+    },
+    {
+      "name": "alpha",
+      "priority": 3,
+      "memoryKB": 16,
+      "script": [
+        "COMPUTE 1",
+        "LOCK R1",
+        "COMPUTE 1",
+        "READ DISK 3",
+        "LOCK R2",
+        "COMPUTE 2",
+        "UNLOCK R2",
+        "UNLOCK R1"
+      ]
+    },
+    {
+      "name": "beta",
+      "priority": 4,
+      "memoryKB": 16,
+      "script": [
+        "COMPUTE 1",
+        "LOCK R2",
+        "COMPUTE 1",
+        "READ DISK 3",
+        "LOCK R1",
+        "COMPUTE 2",
+        "UNLOCK R1",
+        "UNLOCK R2"
+      ]
+    }
+  ],
+  "name": "deadlock"
+}

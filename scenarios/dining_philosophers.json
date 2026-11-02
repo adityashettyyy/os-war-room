@@ -1,0 +1,99 @@
+{
+  "title": "Synchronisation — Dining Philosophers",
+  "description": "Five philosophers each pick up their left fork, then their right. When everyone holds a left fork the wait-for graph is a 5-cycle: deadlock. Recovery is disabled so the cycle stays visible in the Resource Allocation Graph.",
+  "demonstrates": [
+    "Mutexes",
+    "Circular wait",
+    "Deadlock detection",
+    "Resource Allocation Graph"
+  ],
+  "suggestedTicks": 200,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 2,
+    "autoDeadlockRecovery": false
+  },
+  "processes": [
+    {
+      "name": "philosopher-1",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "COMPUTE 1",
+        "LOCK F1",
+        "COMPUTE 1",
+        "SLEEP 2",
+        "LOCK F2",
+        "COMPUTE 3",
+        "UNLOCK F2",
+        "UNLOCK F1"
+      ]
+    },
+    {
+      "name": "philosopher-2",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "COMPUTE 1",
+        "LOCK F2",
+        "COMPUTE 1",
+        "SLEEP 2",
+        "LOCK F3",
+        "COMPUTE 3",
+        "UNLOCK F3",
+        "UNLOCK F2"
+      ]
+    },
+    {
+      "name": "philosopher-3",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "COMPUTE 1",
+        "LOCK F3",
+        "COMPUTE 1",
+        "SLEEP 2",
+        "LOCK F4",
+        "COMPUTE 3",
+        "UNLOCK F4",
+        "UNLOCK F3"
+      ]
+    },
+    {
+      "name": "philosopher-4",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "COMPUTE 1",
+        "LOCK F4",
+        "COMPUTE 1",
+        "SLEEP 2",
+        "LOCK F5",
+        "COMPUTE 3",
+        "UNLOCK F5",
+        "UNLOCK F4"
+      ]
+    },
+    {
+      "name": "philosopher-5",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "COMPUTE 1",
+        "LOCK F5",
+        "COMPUTE 1",
+        "SLEEP 2",
+        "LOCK F1",
+        "COMPUTE 3",
+        "UNLOCK F1",
+        "UNLOCK F5"
+      ]
+    }
+  ],
+  "name": "dining_philosophers"
+}

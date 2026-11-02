@@ -1,0 +1,65 @@
+{
+  "title": "Synchronisation — Race Condition",
+  "description": "Two processes each increment a shared-memory counter ten times with no lock. Preemption between the read and the write loses updates: the final value is less than 20. Add LOCK m / UNLOCK m around the read-modify-write to fix it.",
+  "demonstrates": [
+    "Shared memory IPC",
+    "Race conditions",
+    "Why mutual exclusion matters"
+  ],
+  "suggestedTicks": 120,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 1,
+    "ctxSwitchCost": 0
+  },
+  "setup": {
+    "segments": [
+      {
+        "name": "counter",
+        "words": 4
+      }
+    ]
+  },
+  "processes": [
+    {
+      "count": 2,
+      "name": "incrementer",
+      "priority": 5,
+      "memoryKB": 8,
+      "memoryRefs": false,
+      "script": [
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1",
+        "SHMR counter 0",
+        "COMPUTE 1",
+        "SHMW counter 0 1"
+      ]
+    }
+  ],
+  "name": "race_condition"
+}

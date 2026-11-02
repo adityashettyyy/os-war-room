@@ -1,0 +1,129 @@
+{
+  "title": "Synchronisation — Producer / Consumer",
+  "description": "A producer and a consumer share a 3-slot bounded buffer guarded by the semaphores empty, full and mutex. The producer blocks when the buffer is full, the consumer when it is empty; all counts return to their initial values.",
+  "demonstrates": [
+    "Counting semaphores",
+    "Producer-consumer",
+    "Blocking and wake-up"
+  ],
+  "suggestedTicks": 300,
+  "config": {
+    "scheduler": "RR",
+    "quantum": 2
+  },
+  "setup": {
+    "semaphores": [
+      {
+        "name": "empty",
+        "value": 3
+      },
+      {
+        "name": "full",
+        "value": 0
+      },
+      {
+        "name": "mutex",
+        "value": 1
+      }
+    ]
+  },
+  "processes": [
+    {
+      "name": "producer",
+      "priority": 4,
+      "memoryKB": 16,
+      "memoryRefs": false,
+      "script": [
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full",
+        "WAIT empty",
+        "WAIT mutex",
+        "COMPUTE 1",
+        "SIGNAL mutex",
+        "SIGNAL full"
+      ]
+    },
+    {
+      "name": "consumer",
+      "priority": 4,
+      "memoryKB": 16,
+      "memoryRefs": false,
+      "script": [
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty",
+        "WAIT full",
+        "WAIT mutex",
+        "COMPUTE 2",
+        "SIGNAL mutex",
+        "SIGNAL empty"
+      ]
+    }
+  ],
+  "name": "producer_consumer"
+}
